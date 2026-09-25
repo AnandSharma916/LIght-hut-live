@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://lighthut.onrender.com/api/:path*"
+      "destination": "https://light-hut-live.onrender.com/api/:path*"
     },
     {
       "source": "/uploads/:path*",
-      "destination": "https://lighthut.onrender.com/uploads/:path*"
+      "destination": "https://light-hut-live.onrender.com/uploads/:path*"
     },
     {
       "source": "/(.*)",
