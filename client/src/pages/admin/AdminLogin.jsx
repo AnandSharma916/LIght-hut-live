@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, ArrowRight, ShieldCheck, Loader2, KeyRound } from 'lucide-react';
+import { Lock, Mail, ArrowRight, ShieldCheck, Loader2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useSettings } from '../../context/SettingsContext';
 import { LHLogo } from '../../components/common/LHLogo';
@@ -47,11 +47,6 @@ export const AdminLogin = () => {
     }
   };
 
-  const handleQuickFill = () => {
-    setEmail('admin@lighthut.com');
-    setPassword('admin123456');
-    setErrorMsg('');
-  };
 
   return (
     <div className="min-h-screen bg-[#090a0d] flex items-center justify-center p-4 relative overflow-hidden">
@@ -80,27 +75,7 @@ export const AdminLogin = () => {
           </p>
         </div>
 
-        {/* Quick Fill Credentials Banner */}
-        <div className="mb-6 p-3 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between text-xs text-neutral-300">
-          <div className="text-left font-mono text-[11px]">
-            <div className="text-neutral-400 flex items-center gap-1.5">
-              <KeyRound className="w-3.5 h-3.5 text-[#DC2626]" />
-              <span>Admin Credentials:</span>
-            </div>
-            <div className="mt-0.5">
-              <span className="text-[#DC2626] font-semibold">admin@lighthut.com</span>{' '}
-              <span className="text-neutral-500">/</span>{' '}
-              <span className="text-neutral-300 font-semibold">admin123456</span>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleQuickFill}
-            className="px-3 py-1.5 rounded-lg bg-[#DC2626]/20 border border-[#DC2626]/40 text-[#DC2626] hover:bg-[#DC2626] hover:text-white transition-all text-[10px] font-semibold tracking-wider uppercase shrink-0 shadow-sm"
-          >
-            Quick Fill
-          </button>
-        </div>
+
 
         {errorMsg && (
           <div className="mb-6 p-3.5 rounded-xl bg-red-950/80 border border-red-800/60 text-red-200 text-xs text-center font-medium">
