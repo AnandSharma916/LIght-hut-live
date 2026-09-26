@@ -384,7 +384,6 @@ export const ProductDetail = () => {
 
   const displayPhone = settings?.phone || '+91 8045811438';
   const cleanPhone = displayPhone.replace(/[^\d+]/g, '');
-  const cleanWhatsapp = (settings?.whatsapp || '+91 9811000000').replace(/[^\d]/g, '');
 
   const numericPrice = (() => {
     if (product.price && Number(product.price) > 0) return Number(product.price);
@@ -402,10 +401,6 @@ export const ProductDetail = () => {
   const originalPrice = Math.round(numericPrice * 1.35);
   const formattedPrice = `₹${numericPrice.toLocaleString('en-IN')}`;
   const formattedOriginalPrice = `₹${originalPrice.toLocaleString('en-IN')}`;
-
-  const whatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent(
-    `Hello LightHut, I am interested in ${product?.name || 'this fixture'} (SKU: ${product?.sku || 'N/A'}, Price: ${formattedPrice}). Please share availability and technical specifications.`
-  )}`;
 
   const handlePrevImage = () => {
     setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Building, Sparkles, ArrowRight, MessageCircle, Building2 } from 'lucide-react';
+import { MapPin, Building, Sparkles, ArrowRight, Mail, Building2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSettings } from '../../context/SettingsContext';
 
@@ -291,17 +291,13 @@ export const Projects = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-            <a
-              href={`https://wa.me/${(settings.whatsapp || '+919811000000').replace(/[^0-9]/g, '')}?text=${encodeURIComponent(
-                'Hello! I am an architect / interior designer and would like to submit drawings for a custom lighting proposal.'
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="btn-gold w-full sm:w-auto px-7 py-3.5 rounded-xl text-xs font-bold uppercase tracking-luxury text-center inline-flex items-center justify-center gap-2 shadow-lg"
             >
-              <MessageCircle className="w-4 h-4" />
+              <Mail className="w-4 h-4" />
               <span>Submit Project Blueprint</span>
-            </a>
+            </Link>
             <Link
               to="/catalog"
               className="w-full sm:w-auto px-6 py-3.5 rounded-xl border border-white/20 hover:border-white text-white bg-white/5 hover:bg-white/10 text-xs font-bold uppercase tracking-luxury text-center transition-colors"

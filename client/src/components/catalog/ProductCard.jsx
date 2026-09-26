@@ -5,7 +5,6 @@ import {
   ArrowRight,
   Eye,
   Heart,
-  MessageCircle,
   Phone,
   Share2,
   Sparkles,
@@ -151,7 +150,6 @@ export const ProductCard = ({ product, hidePricing = false }) => {
 
   const displayPhone = settings?.phone || '+91 8045811438';
   const rawPhone = displayPhone.replace(/[^\d+]/g, '');
-  const cleanWhatsapp = (settings?.whatsapp || '+91 9811000000').replace(/[^\d]/g, '');
 
   // Numerical price computation (deterministic realistic fake price if not provided)
   const numericPrice = (() => {
@@ -182,10 +180,6 @@ export const ProductCard = ({ product, hidePricing = false }) => {
     product.description ||
     product.shortDescription ||
     '';
-
-  const whatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${encodeURIComponent(
-    `Hello LightHut, I am interested in ${product.name} (Price: ${formattedPrice}). Please share availability and delivery details.`
-  )}`;
 
   return (
     <>
@@ -340,24 +334,14 @@ export const ProductCard = ({ product, hidePricing = false }) => {
                     </div>
                   </div>
 
-                  <div className="mt-5 pt-3 border-t border-neutral-100 flex items-center gap-2">
+                  <div className="mt-5 pt-3 border-t border-neutral-100">
                     <Link
                       to={`/product/${product.slug}`}
                       onClick={() => setQuickViewOpen(false)}
-                      className="flex-1 py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold text-center transition-all"
+                      className="w-full block py-2.5 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-bold text-center transition-all"
                     >
                       View Full Specs
                     </Link>
-
-                    <a
-                      href={whatsappUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="p-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition-all"
-                      title="Inquire via WhatsApp"
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                    </a>
                   </div>
                 </div>
               </div>

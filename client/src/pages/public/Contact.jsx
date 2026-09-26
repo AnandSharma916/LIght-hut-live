@@ -37,10 +37,6 @@ export const Contact = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const cleanPhone = (settings.phone || '+91 8045811438').replace(/[^\d+]/g, '');
-  const cleanWhatsapp = (settings.whatsapp || '+91 9811000000').replace(/[^\d]/g, '');
-  const whatsappGreeting = encodeURIComponent(
-    `Hello ${settings.companyName || 'LightHut'}, I would like to schedule an architectural consultation and inquire about showroom luminaires.`
-  );
 
   useEffect(() => {
     document.title = `Contact Us & Lighting Showroom | ${settings.companyName || 'LightHut'}`;
@@ -219,7 +215,7 @@ export const Contact = () => {
                       </div>
                       <div>
                         <label className="block text-xs uppercase tracking-luxury text-neutral-600 mb-1 font-semibold">
-                          Phone / WhatsApp Number *
+                          Phone Number *
                         </label>
                         <input
                           type="tel"

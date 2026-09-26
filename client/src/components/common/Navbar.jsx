@@ -12,9 +12,6 @@ import {
   ArrowRight,
   Send,
   Zap,
-  FileText,
-  Download,
-  Layers,
 } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 import { SearchModal } from './SearchModal';
@@ -184,7 +181,6 @@ export const Navbar = () => {
   const [megaOpen, setMegaOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [inquiryOpen, setInquiryOpen] = useState(false);
-  const [catalogMenuOpen, setCatalogMenuOpen] = useState(false);
   const megaRef = useRef(null);
   const location = useLocation();
 
@@ -199,7 +195,6 @@ export const Navbar = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
     setMegaOpen(false);
-    setCatalogMenuOpen(false);
   }, [location.pathname]);
 
   const closeMobile = () => setMobileMenuOpen(false);
@@ -273,86 +268,18 @@ export const Navbar = () => {
               </AnimatePresence>
             </div>
 
-            {/* 3. Catalog with Quick PDF option */}
-            <div
-              className="relative"
-              onMouseEnter={() => setCatalogMenuOpen(true)}
-              onMouseLeave={() => setCatalogMenuOpen(false)}
+            {/* 3. Catalog */}
+            <NavLink
+              to="/catalog"
+              className={({ isActive }) =>
+                `px-3.5 py-2 text-[11.5px] font-semibold uppercase tracking-[0.12em] rounded-xl transition-all ${isActive
+                  ? 'text-[#DC2626] bg-red-50 font-bold'
+                  : 'text-neutral-700 hover:text-[#DC2626] hover:bg-neutral-100/70'
+                }`
+              }
             >
-              <NavLink
-                to="/catalog"
-                className={({ isActive }) =>
-                  `flex items-center gap-1 px-3.5 py-2 text-[11.5px] font-semibold uppercase tracking-[0.12em] rounded-xl transition-all ${
-                    isActive || catalogMenuOpen
-                      ? 'text-[#DC2626] bg-red-50 font-bold'
-                      : 'text-neutral-700 hover:text-[#DC2626] hover:bg-neutral-100/70'
-                  }`
-                }
-              >
-                <span>Catalog</span>
-                <ChevronDown
-                  className={`w-3 h-3 transition-transform duration-200 ${
-                    catalogMenuOpen ? 'rotate-180 text-[#DC2626]' : 'text-neutral-400'
-                  }`}
-                />
-              </NavLink>
-
-              {/* Flyout dropdown */}
-              <AnimatePresence>
-                {catalogMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 pt-2 z-50 w-72"
-                  >
-                    <div className="bg-white rounded-2xl shadow-2xl border border-neutral-200/90 p-2 space-y-1 backdrop-blur-md">
-                      <Link
-                        to="/catalog"
-                        onClick={() => setCatalogMenuOpen(false)}
-                        className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-neutral-50 text-neutral-800 transition-colors group"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-neutral-100 flex items-center justify-center text-neutral-600 group-hover:bg-red-50 group-hover:text-[#DC2626] shrink-0 transition-colors">
-                          <Layers className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <p className="text-xs font-bold text-neutral-900 group-hover:text-[#DC2626]">
-                            Explore Online Catalog
-                          </p>
-                          <p className="text-[10px] text-neutral-500 font-normal">
-                            All 10 lighting categories & subcategories
-                          </p>
-                        </div>
-                      </Link>
-
-                      <a
-                        href="/LH-FANCY 2608.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => setCatalogMenuOpen(false)}
-                        className="flex items-start gap-3 p-2.5 rounded-xl bg-red-50/80 hover:bg-[#DC2626] text-neutral-900 hover:text-white transition-all group"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#DC2626] shrink-0 shadow-2xs">
-                          <FileText className="w-4 h-4" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-xs font-bold flex items-center justify-between">
-                            <span>Download 2026 Catalog</span>
-                            <span className="text-[9px] uppercase px-1.5 py-0.5 rounded bg-red-200/80 group-hover:bg-white group-hover:text-[#DC2626] font-mono font-bold">
-                              PDF
-                            </span>
-                          </p>
-                          <p className="text-[10px] text-neutral-500 group-hover:text-white/85 font-normal">
-                            LH-FANCY 2608.pdf • Full Edition
-                          </p>
-                        </div>
-                      </a>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
+              Catalog
+            </NavLink>
 
             {/* 4. Projects */}
             <NavLink
@@ -396,21 +323,6 @@ export const Navbar = () => {
 
           {/* ── Desktop Right Actions ── */}
           <div className="hidden lg:flex items-center gap-2.5 shrink-0">
-            {/* Prominent Master Catalog PDF Button */}
-            <a
-              href="/LH-FANCY 2608.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-3.5 py-2 rounded-xl text-white
-                         bg-[#DC2626] hover:bg-red-700 border border-red-600
-                         transition-all text-[11px] uppercase tracking-wider font-bold shadow-md shadow-red-600/25 group cursor-pointer"
-              title="Download 2026 Lighting Catalog (LH-FANCY 2608.pdf)"
-            >
-              <FileText className="w-3.5 h-3.5 text-white" />
-              <span>Catalog PDF</span>
-              <Download className="w-3 h-3 text-white/90 group-hover:translate-y-0.5 transition-transform" />
-            </a>
-
             <button
               id="navbar-search-btn"
               onClick={() => setSearchOpen(true)}
@@ -568,18 +480,6 @@ export const Navbar = () => {
 
               {/* Drawer footer */}
               <div className="px-4 pb-6 pt-3 border-t border-neutral-200 space-y-2.5 shrink-0">
-                <a
-                  href="/LH-FANCY 2608.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMobile}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-xs font-bold uppercase tracking-wider bg-red-50 text-[#DC2626] border border-red-200 hover:bg-[#DC2626] hover:text-white transition-all shadow-xs"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>Download 2026 Catalog (PDF)</span>
-                  <Download className="w-3.5 h-3.5 ml-1" />
-                </a>
-
                 <button
                   onClick={() => { closeMobile(); setInquiryOpen(true); }}
                   className="w-full btn-gold py-3 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"

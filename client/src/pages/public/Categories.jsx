@@ -8,7 +8,7 @@ import {
   Sun,
   Flame,
   Compass,
-  MessageCircle,
+  Mail,
   CheckCircle2,
   Maximize2,
   Lightbulb,
@@ -41,8 +41,6 @@ export const Categories = () => {
     };
     fetchCategories();
   }, [settings.companyName]);
-
-  const whatsappNumber = (settings.whatsapp || '+919811000000').replace(/[^0-9]/g, '');
 
   const lightingLayers = [
     {
@@ -360,7 +358,7 @@ export const Categories = () => {
             </div>
           </div>
 
-          {/* WhatsApp Scale Consultation Banner */}
+          {/* Scale Consultation Banner */}
           <div className="p-8 sm:p-10 rounded-2xl bg-[#f8fafc] border border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-6 mb-12">
             <div>
               <h4 className="font-serif-luxury text-xl font-bold text-neutral-900">
@@ -370,17 +368,13 @@ export const Categories = () => {
                 Send your room dimensions to our architectural team for a free luminaire scale match.
               </p>
             </div>
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                'Hi team, I would like assistance choosing the right luminaire size and category for my home.'
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="btn-gold px-7 py-3 rounded-xl text-xs font-bold uppercase tracking-luxury inline-flex items-center gap-2 shrink-0 shadow-md"
             >
-              <MessageCircle className="w-4 h-4" />
+              <Mail className="w-4 h-4" />
               <span>Ask a Specialist</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

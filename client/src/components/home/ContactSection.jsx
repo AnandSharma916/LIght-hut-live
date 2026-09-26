@@ -115,20 +115,6 @@ export const ContactSection = ({ section }) => {
                   <span>Monday – Saturday: 10:00 AM – 8:00 PM</span>
                 </div>
               </div>
-
-              {settings.whatsapp && (
-                <div className="pt-2">
-                  <a
-                    href={`https://wa.me/${settings.whatsapp.replace(/[^\d]/g, '')}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-full py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md"
-                  >
-                    <MessageSquare className="w-4 h-4 text-white" />
-                    <span>Quick WhatsApp Chat</span>
-                  </a>
-                </div>
-              )}
             </div>
           </div>
 

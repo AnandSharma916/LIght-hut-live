@@ -151,7 +151,7 @@ export const InquiryModal = ({ isOpen, onClose, product = null }) => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs uppercase tracking-luxury text-neutral-600 mb-1 font-semibold">
-                        Phone / WhatsApp
+                        Phone Number
                       </label>
                       <input
                         type="tel"

@@ -34,6 +34,7 @@ export const SiteSettingsPage = () => {
       facebook: '',
       linkedin: '',
       pinterest: '',
+      youtube: '',
     },
     footerContent: {
       copyrightText: '',
@@ -339,6 +340,19 @@ export const SiteSettingsPage = () => {
                 value={formData.socialLinks.instagram}
                 onChange={(e) => handleNestedChange('socialLinks', 'instagram', e.target.value)}
                 placeholder="https://www.instagram.com/lighthutdecorativesolutions/"
+                className="w-full px-4 py-2.5 rounded-xl bg-[#090a0d] border border-white/10 text-white text-xs font-mono"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs uppercase tracking-luxury text-neutral-400 mb-1.5 font-medium">
+                YouTube Channel URL
+              </label>
+              <input
+                type="url"
+                value={formData.socialLinks.youtube || ''}
+                onChange={(e) => handleNestedChange('socialLinks', 'youtube', e.target.value)}
+                placeholder="https://www.youtube.com/@LightHut"
                 className="w-full px-4 py-2.5 rounded-xl bg-[#090a0d] border border-white/10 text-white text-xs font-mono"
               />
             </div>

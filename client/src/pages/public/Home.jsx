@@ -1,28 +1,22 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { homepageService } from '../../services/api';
 import { HeroSection } from '../../components/home/HeroSection';
-import { CategoriesSection } from '../../components/home/CategoriesSection';
 import { AboutSection } from '../../components/home/AboutSection';
-import { FeaturedProductsSection } from '../../components/home/FeaturedProductsSection';
 import { ProjectsSection } from '../../components/home/ProjectsSection';
-import { CTASection } from '../../components/home/CTASection';
 import { ContactSection } from '../../components/home/ContactSection';
 import { useSettings } from '../../context/SettingsContext';
 import { ExploreProductRangeSection } from '../../components/home/ExploreProductRangeSection';
 import { CuratedSpacesLookbook } from '../../components/home/CuratedSpacesLookbook';
 import { CategoryBannersGrid } from '../../components/home/CategoryBannersGrid';
-import { OurWorkShowcaseSection } from '../../components/home/OurWorkShowcaseSection';
 import { OurInstagramShowcaseSection } from '../../components/home/OurInstagramShowcaseSection';
 import { ErrorBoundary } from '../../components/common/ErrorBoundary';
 
-// Streamlined homepage sections: concise luxury flow with both carousels permanently present
+// Streamlined homepage sections: excluded "MOST LOVED DESIGNS" and "Our Work" as requested
 const FALLBACK_SECTIONS = [
   { sectionKey: 'hero', name: 'Hero' },
   { sectionKey: 'explore_range', name: 'Explore Product Range' },
-  { sectionKey: 'featured_products', name: 'Featured Products' },
   { sectionKey: 'spaces_lookbook', name: 'Curated Spaces Lookbook' },
   { sectionKey: 'about', name: 'About' },
-  { sectionKey: 'our_work', name: 'Our Work' },
   { sectionKey: 'projects', name: 'Projects' },
   { sectionKey: 'instagram', name: 'Our Instagram' },
   { sectionKey: 'contact', name: 'Contact Us' },
@@ -82,12 +76,6 @@ export const Home = () => {
       case 'about':
         content = <AboutSection key={section._id || 'about'} section={section} />;
         break;
-      case 'our_work':
-        content = <OurWorkShowcaseSection key={section._id || 'our_work'} />;
-        break;
-      case 'featured_products':
-        content = <FeaturedProductsSection key={section._id || 'featured'} section={section} />;
-        break;
       case 'projects':
         content = <ProjectsSection key={section._id || 'projects'} section={section} />;
         break;
@@ -95,7 +83,7 @@ export const Home = () => {
         content = <OurInstagramShowcaseSection key={section._id || 'instagram'} />;
         break;
       case 'cta':
-        // The above-footer section is now rendered seamlessly directly atop the footer in Footer.jsx
+        // The above-footer section is rendered seamlessly directly atop the footer in Footer.jsx
         return null;
       case 'contact':
         content = <ContactSection key={section._id || 'contact'} section={section} />;
@@ -111,39 +99,30 @@ export const Home = () => {
     );
   };
 
-  // Ensure all luxury showcase sections (Our Work, Instagram, Contact Us, and carousels)
-  // are ALWAYS included in the homepage layout even when backend API returns default seed
+  // Compute final sections: explicit removal of MOST LOVED DESIGNS (featured_products) and our_work on homepage
   const sectionsToRender = useMemo(() => {
     if (sections && sections.length > 0) {
       const list = [];
       const hasSpaces = sections.some((s) => s.sectionKey === 'spaces_lookbook');
-      const hasOurWork = sections.some((s) => s.sectionKey === 'our_work');
       const hasInstagram = sections.some((s) => s.sectionKey === 'instagram');
-      const hasContact = sections.some((s) => s.sectionKey === 'contact');
 
       for (const s of sections) {
+        // Exclude MOST LOVED DESIGNS (featured_products) and our_work from homepage
+        if (s.sectionKey === 'featured_products' || s.sectionKey === 'our_work' || s.sectionKey === 'lighting_studio') {
+          continue;
+        }
+
         if (s.sectionKey === 'categories') {
-          // Render the high-end smooth auto-scrolling category carousel
           list.push({ ...s, sectionKey: 'explore_range' });
-        } else if (s.sectionKey === 'featured_products') {
-          list.push(s);
-          // Insert Curated Spaces Lookbook carousel right after featured products
           if (!hasSpaces) {
             list.push({ sectionKey: 'spaces_lookbook', name: 'Curated Spaces Lookbook' });
           }
-        } else if (s.sectionKey === 'about') {
-          list.push(s);
-          // Insert Our Work showcase right after About
-          if (!hasOurWork) {
-            list.push({ sectionKey: 'our_work', name: 'Our Work' });
-          }
         } else if (s.sectionKey === 'projects') {
           list.push(s);
-          // Insert Instagram showcase right after Projects
           if (!hasInstagram) {
             list.push({ sectionKey: 'instagram', name: 'Our Instagram' });
           }
-        } else if (s.sectionKey !== 'lighting_studio') {
+        } else {
           list.push(s);
         }
       }
@@ -156,12 +135,8 @@ export const Home = () => {
 
       // Ensure spaces_lookbook is present
       if (!list.some((s) => s.sectionKey === 'spaces_lookbook')) {
-        list.push({ sectionKey: 'spaces_lookbook', name: 'Curated Spaces Lookbook' });
-      }
-
-      // Ensure our_work is present
-      if (!list.some((s) => s.sectionKey === 'our_work')) {
-        list.push({ sectionKey: 'our_work', name: 'Our Work' });
+        const rangeIdx = list.findIndex((s) => s.sectionKey === 'explore_range');
+        list.splice(rangeIdx + 1, 0, { sectionKey: 'spaces_lookbook', name: 'Curated Spaces Lookbook' });
       }
 
       // Ensure instagram is present
@@ -174,7 +149,10 @@ export const Home = () => {
         list.push({ sectionKey: 'contact', name: 'Contact Us' });
       }
 
-      return list;
+      // Final strict filter guaranteeing exclusion of both sections
+      return list.filter(
+        (s) => s.sectionKey !== 'featured_products' && s.sectionKey !== 'our_work'
+      );
     }
 
     return FALLBACK_SECTIONS;

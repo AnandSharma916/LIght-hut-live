@@ -1,33 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, ArrowUp } from 'lucide-react';
+import { Phone, ArrowUp, Mail } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 
 /**
- * Floating Action Widget with Individual Social Media Buttons
+ * Floating Action Widget with Individual Social Media & Contact Buttons
  * Features:
- * 1. Separate distinct buttons for each social & contact channel:
+ * 1. Separate distinct buttons for:
  *    - Direct Call (Phone)
  *    - Facebook
  *    - Instagram
- *    - WhatsApp
- * 2. ONLY WhatsApp has continuous animation (ping ring & gentle breath) running continuously.
- * 3. All other buttons are static until hovered.
- * 4. Scroll-To-Top button appears on scroll > 250px.
+ *    - YouTube
+ *    - Email (Mail)
+ * 2. Scroll-To-Top button appears on scroll > 250px.
  */
 export const FloatingActionWidget = () => {
   const { settings } = useSettings();
   const [showTopBtn, setShowTopBtn] = useState(false);
 
-  const rawWhatsapp = (settings?.whatsapp || settings?.phone || '+91 9811000000').replace(/[^0-9]/g, '');
-  const displayPhone = settings?.phone || settings?.whatsapp || '+91 8045811438';
+  const displayPhone = settings?.phone || '+91 8045811438';
   const rawCallPhone = displayPhone.replace(/[^0-9+]/g, '');
 
-  const whatsappUrl = `https://wa.me/${rawWhatsapp}?text=${encodeURIComponent(
-    'Hello LightHut, I would like to inquire about your luxury designer lighting collections.'
-  )}`;
   const instagramUrl = settings?.socialLinks?.instagram || 'https://www.instagram.com/lighthutdecorativesolutions/';
   const facebookUrl = settings?.socialLinks?.facebook || 'https://facebook.com';
+  const youtubeUrl = settings?.socialLinks?.youtube || 'https://www.youtube.com';
+  const email = settings?.email || 'lighthutdecorativedlh@gmail.com';
+  const mailtoUrl = `mailto:${email}?subject=${encodeURIComponent('Inquiry: LightHut Luxury Lighting')}`;
 
   // Scroll visibility
   useEffect(() => {
@@ -124,34 +122,37 @@ export const FloatingActionWidget = () => {
         </span>
       </div>
 
-      {/* ── WhatsApp Button (WITH CONTINUOUS ANIMATION) ── */}
+      {/* ── YouTube Button ── */}
       <div className="relative group flex items-center justify-center">
-        {/* Continuous Ping Pulse Ring - ONLY on WhatsApp */}
-        <span className="absolute -inset-1.5 rounded-full bg-[#25D366]/40 animate-ping pointer-events-none" />
-
-        <motion.a
-          href={whatsappUrl}
+        <a
+          href={youtubeUrl}
           target="_blank"
           rel="noopener noreferrer"
-          animate={{
-            scale: [1, 1.07, 1],
-          }}
-          transition={{
-            duration: 2.2,
-            repeat: Infinity,
-            ease: 'easeInOut',
-          }}
-          className="relative z-10 w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-[#25D366] to-[#128C7E] text-white shadow-[0_8px_25px_rgba(37,211,102,0.45)] hover:shadow-[0_12px_32px_rgba(37,211,102,0.65)] flex items-center justify-center transition-transform cursor-pointer"
-          title="Chat on WhatsApp"
-          aria-label="Direct WhatsApp Consultation"
+          className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#FF0000] hover:bg-[#d00000] text-white shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer"
+          title="Watch on YouTube"
+          aria-label="YouTube channel"
         >
-          <svg className="w-7 h-7 sm:w-8 sm:h-8 fill-white" viewBox="0 0 24 24">
-            <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.187-2.59-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.312.045-.694.066-2.115-.497-1.745-.69-2.871-2.47-2.958-2.585-.087-.116-.708-.94-.708-1.792s.448-1.277.607-1.452c.16-.175.348-.219.465-.219.116 0 .232.001.334.006.107.006.249-.041.389.296.145.349.494 1.206.538 1.294.044.088.073.19.015.306-.059.117-.088.19-.175.292-.087.102-.184.227-.262.306-.088.087-.179.182-.077.357.102.175.453.748.973 1.211.669.596 1.233.78 1.408.868.175.088.277.073.379-.044.102-.117.437-.51.554-.685.116-.175.233-.146.393-.088.16.058 1.018.48 1.193.568.175.088.291.131.335.204.043.073.043.424-.101.829z" />
+          <svg className="w-5 h-5 fill-white" viewBox="0 0 24 24">
+            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
           </svg>
-        </motion.a>
+        </a>
+        <span className="hidden sm:inline-flex absolute right-15 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-neutral-900/95 text-white text-xs font-medium tracking-wide shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+          YouTube
+        </span>
+      </div>
 
-        <span className="hidden sm:inline-flex absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-neutral-900/95 text-white text-xs font-semibold tracking-wide shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
-          Chat on WhatsApp
+      {/* ── Mail Button ── */}
+      <div className="relative group flex items-center justify-center">
+        <a
+          href={mailtoUrl}
+          className="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#DC2626] hover:bg-[#B91C1C] text-white shadow-md hover:shadow-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer border border-white/15"
+          title={`Email: ${email}`}
+          aria-label={`Email ${email}`}
+        >
+          <Mail className="w-5 h-5 text-white" />
+        </a>
+        <span className="hidden sm:inline-flex absolute right-15 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-lg bg-neutral-900/95 text-white text-xs font-medium tracking-wide shadow-xl border border-white/10 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+          Email Us
         </span>
       </div>
     </aside>

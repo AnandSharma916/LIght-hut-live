@@ -5,7 +5,7 @@ import {
   ArrowRight,
   ChevronLeft,
   ChevronRight,
-  MessageSquare,
+  Mail,
 } from 'lucide-react';
 import { useSettings } from '../../context/SettingsContext';
 
@@ -116,11 +116,6 @@ export const HeroSection = ({ section }) => {
 
   const handleNext = () => setCurrentIdx((prev) => (prev + 1) % slides.length);
   const handlePrev = () => setCurrentIdx((prev) => (prev - 1 + slides.length) % slides.length);
-
-  const cleanWhatsapp = (settings?.whatsapp || '+91 9811000000').replace(/[^\d]/g, '');
-  const whatsappGreeting = encodeURIComponent(
-    `Hello ${settings?.companyName || 'LightHut'}, I am interested in ${currentSlide.productName} (${currentSlide.category}) and would like pricing and availability details.`
-  );
 
   return (
     <section
@@ -237,17 +232,13 @@ export const HeroSection = ({ section }) => {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
-                {cleanWhatsapp && (
-                  <a
-                    href={`https://wa.me/${cleanWhatsapp}?text=${whatsappGreeting}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="shine-on-hover px-6 py-3.5 rounded-xl bg-black/60 hover:bg-black/80 border border-white/25 text-white text-xs font-bold uppercase tracking-luxury flex items-center gap-2 transition-all backdrop-blur-md shadow-lg hover:border-emerald-400/50 transform hover:-translate-y-0.5"
-                  >
-                    <MessageSquare className="w-4 h-4 text-emerald-400" />
-                    <span>Inquire via WhatsApp</span>
-                  </a>
-                )}
+                <Link
+                  to="/contact"
+                  className="shine-on-hover px-6 py-3.5 rounded-xl bg-black/60 hover:bg-black/80 border border-white/25 text-white text-xs font-bold uppercase tracking-luxury flex items-center gap-2 transition-all backdrop-blur-md shadow-lg hover:border-white/50 transform hover:-translate-y-0.5"
+                >
+                  <Mail className="w-4 h-4 text-red-400" />
+                  <span>Request Consultation</span>
+                </Link>
               </div>
             </motion.div>
           </AnimatePresence>

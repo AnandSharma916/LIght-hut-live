@@ -15,7 +15,7 @@ import {
   Hammer,
   Eye,
   Truck,
-  MessageCircle,
+  Mail,
   HelpCircle,
   FileCheck2,
   FileText,
@@ -65,8 +65,6 @@ export const About = () => {
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index);
   };
-
-  const whatsappNumber = (settings.whatsapp || '+919811000000').replace(/[^0-9]/g, '');
 
   const craftsmanshipPillars = [
     {
@@ -139,7 +137,7 @@ export const About = () => {
   const faqs = [
     {
       q: 'How do I choose the right chandelier size for my double-height ceiling or living room?',
-      a: 'A proven architectural rule of thumb is: Room Width (ft) + Room Length (ft) = Chandelier Diameter in inches. For example, a 16ft × 20ft living room ideally suits a 36-inch diameter luminaire. For double-height ceilings (18ft to 24ft+), we recommend multi-tiered or cascading drops that fill the vertical volume while keeping the bottom of the chandelier at least 8 to 9 feet above floor level. Our team provides complimentary scale consultations via WhatsApp.',
+      a: 'A proven architectural rule of thumb is: Room Width (ft) + Room Length (ft) = Chandelier Diameter in inches. For example, a 16ft × 20ft living room ideally suits a 36-inch diameter luminaire. For double-height ceilings (18ft to 24ft+), we recommend multi-tiered or cascading drops that fill the vertical volume while keeping the bottom of the chandelier at least 8 to 9 feet above floor level. Our team provides complimentary scale consultations via our design desk.',
     },
     {
       q: 'Are your chandeliers and hanging lights dimmable with home automation?',
@@ -394,17 +392,13 @@ export const About = () => {
             </div>
 
             <div className="pt-3 flex flex-wrap items-center gap-4">
-              <a
-                href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                  'Hello! I am an architect / interior designer and would like to inquire about your Trade Partnership program and project catalog.'
-                )}`}
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                to="/contact"
                 className="btn-gold px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-luxury inline-flex items-center gap-2 shadow-lg"
               >
-                <MessageCircle className="w-4 h-4" />
+                <Mail className="w-4 h-4" />
                 <span>Connect With Trade Desk</span>
-              </a>
+              </Link>
               <Link
                 to="/projects"
                 className="px-6 py-3.5 rounded-xl border border-white/20 hover:border-white text-xs font-bold uppercase tracking-luxury text-white hover:bg-white/10 transition-colors inline-flex items-center gap-2"
@@ -975,17 +969,13 @@ export const About = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0 w-full sm:w-auto">
-            <a
-              href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-                'Hi team, I would like to consult with a lighting expert for my home/project.'
-              )}`}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="btn-gold w-full sm:w-auto px-8 py-3.5 rounded-xl text-xs font-bold uppercase tracking-luxury text-center inline-flex items-center justify-center gap-2 shadow-md"
             >
-              <MessageCircle className="w-4 h-4" />
-              <span>WhatsApp Consultation</span>
-            </a>
+              <Mail className="w-4 h-4" />
+              <span>Inquire With Specialists</span>
+            </Link>
             <Link
               to="/catalog"
               className="w-full sm:w-auto px-7 py-3.5 rounded-xl border border-neutral-300 hover:border-neutral-900 text-neutral-800 hover:text-neutral-950 bg-white text-xs font-bold uppercase tracking-luxury text-center transition-colors"

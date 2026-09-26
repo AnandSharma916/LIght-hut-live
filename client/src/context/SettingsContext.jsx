@@ -20,6 +20,7 @@ export const SettingsProvider = ({ children }) => {
       facebook: 'https://facebook.com',
       linkedin: 'https://linkedin.com',
       pinterest: 'https://pinterest.com',
+      youtube: 'https://www.youtube.com',
     },
     footerContent: {
       copyrightText: '© 2026 M/S LIGHT-HUT DECORATIVE SOLUTIONS. All Rights Reserved.',
